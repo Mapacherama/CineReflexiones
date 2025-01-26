@@ -1,21 +1,21 @@
+from flask import Flask, jsonify
+from flask_cors import CORS
 import pandas as pd
 
-# Load the CSV file into a DataFrame
-file_path = "data\movies_metadata.csv"  # Replace with your file's path
-movies = pd.read_csv(file_path)
+app = Flask(__name__)
+CORS(app)  # Enable cross-origin requests
 
-# Display basic information about the dataset
-print("\nDataset Info:")
-print(movies.info())
+# Load and preprocess movie data
+movies = pd.read_csv('data/movies.csv')
 
-# Display the first few rows of the dataset
-print("\nFirst 5 rows:")
-print(movies.head())
+# Clean and preprocess the data
+movies['genres'] = movies['genres'].fillna('[]')
+movies['genres'] = movies['genres'].apply(eval).apply(lambda x: ', '.join([d['name'] for d in x if 'name' in d]))
 
-# Display basic statistics of numerical columns
-print("\nBasic statistics:")
-print(movies.describe())
+@app.route('/api/movies', methods=['GET'])
+def get_movies():
+    # Return a subset of movie data as JSON
+    return jsonify(movies[['title', 'genres', 'release_date', 'vote_average', 'revenue']].to_dict(orient='records'))
 
-# Display column names
-print("\nColumns in the dataset:")
-print(movies.columns.tolist())
+if __name__ == '__main__':
+    app.run(debug=True)
