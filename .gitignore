@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Cache and logs
+*.log
+*.csv~
+*.sqlite3
+*.db
+*.pkl
+*.h5
+*.cache/
+*.mypy_cache/
+*.pytest_cache/
+*.coverage
+.coverage.*
+
+# Matplotlib and Seaborn generated plots
+*.png
+*.svg
+*.jpg
+
+# Data files
+data/*.csv
+data/*.json
+
+# Ignore API keys or credentials
+.env
+*.key
+*.pem
+
+# Ignore VSCode settings
+.vscode/
+
+# IDE settings
+.idea/
+*.iml
+
+# Ignore macOS system files
+.DS_Store
